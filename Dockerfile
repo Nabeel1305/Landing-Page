@@ -1,40 +1,54 @@
-# PakaPay marketing site — static Nginx image
+# PakaPay marketing site — Laravel 11 / PHP 8.4
 #
-# The site is plain HTML/CSS/JS with no build step, so this is a single-stage
-# image: drop the files into Nginx's web root and serve them.
+# Two stages: install PHP dependencies with Composer, then assemble the
+# runtime image (PHP-FPM + nginx, run together via supervisor).
 
-FROM nginx:1.27-alpine
+# ---------- Stage 1: Composer dependencies ----------
+FROM composer:2 AS vendor
 
-# Strip the default Nginx welcome page and default vhost config
-RUN rm -rf /usr/share/nginx/html/* /etc/nginx/conf.d/default.conf
+WORKDIR /app
+COPY composer.json composer.lock* ./
+RUN composer install \
+    --no-dev \
+    --no-scripts \
+    --no-autoloader \
+    --ignore-platform-reqs \
+    --no-interaction
 
-# Custom server block: maps "/" to the homepage and wires up the real 404 page
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY . .
+RUN composer dump-autoload --optimize --no-dev
 
-# Site pages
-COPY 404.html        /usr/share/nginx/html/404.html
-COPY about.html       /usr/share/nginx/html/about.html
-COPY business.html    /usr/share/nginx/html/business.html
-COPY compliance.html  /usr/share/nginx/html/compliance.html
-COPY contact.html     /usr/share/nginx/html/contact.html
-COPY help.html        /usr/share/nginx/html/help.html
-COPY pricing.html     /usr/share/nginx/html/pricing.html
-COPY privacy.html     /usr/share/nginx/html/privacy.html
-COPY terms.html       /usr/share/nginx/html/terms.html
+# ---------- Stage 2: Runtime ----------
+FROM php:8.4-fpm-alpine
 
-# SEO assets
-COPY robots.txt       /usr/share/nginx/html/robots.txt
-COPY sitemap.xml      /usr/share/nginx/html/sitemap.xml
-COPY og-image.png     /usr/share/nginx/html/og-image.png
+RUN apk add --no-cache \
+        nginx \
+        supervisor \
+        sqlite \
+        sqlite-dev \
+        libpng-dev \
+        oniguruma-dev \
+    && docker-php-ext-install pdo_sqlite mbstring opcache \
+    && rm -rf /var/cache/apk/*
 
-# The homepage file is named pakapay-website.html in this project. Every page
-# on the site links to it as https://pakapay.ng/ (domain root), so it needs to
-# become index.html for those links to actually resolve once deployed.
-COPY pakapay-website.html /usr/share/nginx/html/index.html
+WORKDIR /var/www/html
+
+COPY --from=vendor /app /var/www/html
+
+COPY docker/nginx.conf /etc/nginx/http.d/default.conf
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+RUN cp .env.example .env \
+    && mkdir -p database \
+    && touch database/database.sqlite \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 storage bootstrap/cache database
 
 EXPOSE 80
 
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s \
-    CMD wget -qO- http://localhost/ > /dev/null || exit 1
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s \
+    CMD wget -qO- http://localhost/up > /dev/null || exit 1
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["entrypoint.sh"]

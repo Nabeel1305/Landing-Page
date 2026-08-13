@@ -3,5 +3,20 @@ services:
     build: .
     image: pakapay-website:latest
     ports:
-      - "8081:80"
+      - "8080:80"
+    environment:
+      # Override anything from .env here, or mount a real .env file instead.
+      APP_ENV: production
+      APP_DEBUG: "false"
+    volumes:
+      # Without this, contact form submissions (SQLite) and logs are wiped
+      # every time the container is rebuilt/redeployed. Mount these as
+      # persistent volumes in production (Coolify: add a "Persistent Storage"
+      # entry for each of these paths in the resource's settings).
+      - pakapay-database:/var/www/html/database
+      - pakapay-storage-logs:/var/www/html/storage/logs
     restart: unless-stopped
+
+volumes:
+  pakapay-database:
+  pakapay-storage-logs:
