@@ -4,16 +4,35 @@ ENV PHP_OPCACHE_ENABLE=1
 # Switch to root to install dependencies
 USER root
 
-# Install GD dependencies
+# Install GD dependencies + SQLite driver
 RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
+    libsqlite3-dev \
+    sqlite3 \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd
+    && docker-php-ext-install -j$(nproc) gd pdo_sqlite \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy application files
 COPY --chown=www-data:www-data . /var/www/html
+
+# Create the SQLite database file. This happens at build time (still root,
+# before the USER switch below) so it exists before any artisan command —
+# including composer's own package:discover / vendor:publish hooks — ever
+# tries to touch the database, which is exactly what broke the build last
+# time (optimize:clear hit a database file that didn't exist yet).
+#
+# NOTE: this file lives inside the image's writable layer. Every rebuild
+# starts from this empty file again — mount a persistent volume at
+# /var/www/html/database in production (Coolify: Persistent Storage on this
+# path) or every redeploy silently wipes the database, including contact
+# form submissions.
+RUN mkdir -p database \
+    && touch database/database.sqlite \
+    && chown -R www-data:www-data database \
+    && chmod -R 775 database
 
 # Switch back to www-data user
 USER www-data
@@ -28,13 +47,9 @@ RUN php artisan storage:link
 RUN php artisan route:cache
 RUN php artisan view:cache
 
-# config:cache is deliberately NOT run here. It would bake in whatever
-# environment variables are visible at BUILD time — if Coolify only injects
-# them at container runtime (common), this caches empty/wrong config into
-# the image instead of your real values. Run it at deploy time instead,
-# alongside `migrate --force`, in Coolify's "Post-deployment command":
+# config:cache is deliberately NOT run here — it would bake in whatever
+# environment variables are visible at BUILD time. Run it at deploy time
+# instead, alongside migrations, in Coolify's "Post-deployment command":
 #   php artisan config:cache && php artisan migrate --force
-# That also keeps it consistent with why migrations were pulled out of this
-# Dockerfile in the first place — same failure mode, same fix.
 
 EXPOSE 8080
