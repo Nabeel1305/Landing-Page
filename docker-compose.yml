@@ -3,5 +3,5 @@ services:
     build: .
     image: pakapay-website:latest
     ports:
-      - "3000:80"
+      - "8080:80"
     restart: unless-stopped
