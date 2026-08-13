@@ -12,26 +12,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
 
-# Install Imagick — required by simplesoftwareio/simple-qrcode's PNG
-# backend (bacon/bacon-qr-code's ImagickImageBackEnd). Without this,
-# QRService::generateBase64() throws "You need to install the imagick
-# extension to use this back end" on every /api/receive/qr call —
-# hit this in production before it was added here.
-RUN apt-get update && apt-get install -y libmagickwand-dev --no-install-recommends \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && rm -rf /var/lib/apt/lists/*
-
-
-RUN apk add --no-cache \
-    nginx \
-    supervisor \
-    sqlite \
-    sqlite-dev \
-    libpng-dev \
-    oniguruma-dev \
-    && docker-php-ext-install pdo_sqlite mbstring opcache \
-
 # Copy application files
 COPY --chown=www-data:www-data . /var/www/html
 
