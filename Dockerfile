@@ -30,8 +30,7 @@ RUN apk add --no-cache \
     sqlite-dev \
     libpng-dev \
     oniguruma-dev \
-    && docker-php-ext-install pdo_sqlite mbstring opcache \
-    && rm -rf /var/cache/apk/*
+    && docker-php-ext-install pdo_sqlite mbstring opcache 
 
 # Copy application files
 COPY --chown=www-data:www-data . /var/www/html
