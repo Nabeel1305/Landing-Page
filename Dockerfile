@@ -44,7 +44,7 @@ RUN php artisan storage:link
 
 # Cache routes and views at build time — pure disk I/O, no database or
 # runtime env vars needed, so it's safe to bake into the image.
-#RUN php artisan migrate --force
+RUN php artisan migrate --force
 RUN php artisan optimize
 
 # config:cache is deliberately NOT run here — it would bake in whatever
