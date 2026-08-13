@@ -18,21 +18,23 @@ COPY --chown=www-data:www-data . /var/www/html
 # Switch back to www-data user
 USER www-data
 
-EXPOSE 8080
-
-# Install dependencies and optimize
+# Install dependencies
 RUN composer install --no-interaction --optimize-autoloader --no-dev
-# Migrations deliberately do NOT run here. Baking `php artisan migrate`
-# into the image build is fine for a pre-production/dev workflow, but
-# risky once live: it runs at BUILD time (which may not even have DB
-# access, e.g. a CI build server), with no --force flag (Laravel prompts
-# for confirmation in production, which a non-interactive build can't
-# answer), and with no control over WHEN it runs relative to the actual
-# release — every image build becomes an implicit migration attempt,
-# including rebuilds that have nothing to do with a schema change.
-# Migrations belong to the deploy/release step instead, run deliberately
-# via `php artisan migrate --force` — in Coolify, that's the service's
-# "Post-deployment command" (or similar) setting, not this Dockerfile.
-RUN php artisan storage:link
-RUN php artisan optimize:clear
 
+RUN php artisan storage:link
+
+# Cache routes and views at build time — pure disk I/O, no database or
+# runtime env vars needed, so it's safe to bake into the image.
+RUN php artisan route:cache
+RUN php artisan view:cache
+
+# config:cache is deliberately NOT run here. It would bake in whatever
+# environment variables are visible at BUILD time — if Coolify only injects
+# them at container runtime (common), this caches empty/wrong config into
+# the image instead of your real values. Run it at deploy time instead,
+# alongside `migrate --force`, in Coolify's "Post-deployment command":
+#   php artisan config:cache && php artisan migrate --force
+# That also keeps it consistent with why migrations were pulled out of this
+# Dockerfile in the first place — same failure mode, same fix.
+
+EXPOSE 8080
