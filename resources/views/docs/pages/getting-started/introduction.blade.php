@@ -1,7 +1,7 @@
 <div class="docs-eyebrow">Getting Started</div>
 <h1>Introduction</h1>
 
-<p>The PakaPay <strong>Offline Payments API</strong> lets a bank, fintech or wallet let its customers pay with <strong>nothing but a phone call</strong>. Your app asks the platform for a one-time numeric code while the customer is still online. Later — with no data connection at all — the customer dials a voice number and keys the code in. The platform verifies the call and tells <em>your</em> system to move the money.</p>
+<p><strong>Nunu</strong>, PakaPay's offline payment infrastructure, lets a bank, fintech or wallet let its customers pay with <strong>nothing but a phone call</strong>. Your app asks the platform for a one-time numeric code while the customer is still online. Later — with no data connection at all — the customer dials a voice number and keys the code in. The platform verifies the call and tells <em>your</em> system to move the money.</p>
 
 <x-docs.callout type="note" title="The platform never holds funds">
   <p>PakaPay verifies and orchestrates; <strong>your own core system</strong> places the hold and performs the transfer (see <a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'settlement']) }}">Settlement Adapter</a>). Because of that, identity checks on your customers (KYC, sanctions, fraud scoring) are <strong>your</strong> responsibility — the platform trusts the subscribers you register.</p>

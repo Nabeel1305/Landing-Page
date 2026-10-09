@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ $title }} — PakaPay Offline Payments API</title>
-<meta name="description" content="PakaPay Offline Payments API documentation — issue one-time payment codes, receive signed webhooks, settle through your own system. Includes the tenant portal and operator guides.">
+<title>{{ $title }} — Nunu Developer Docs</title>
+<meta name="description" content="Nunu developer documentation — PakaPay's offline payment infrastructure. Issue one-time payment codes, receive signed webhooks and settle through your own system.">
 <link rel="canonical" href="{{ url()->current() }}">
 
 <meta name="theme-color" content="#03556A">
@@ -49,6 +49,7 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-9.6 9.6"/><circle cx="7.5" cy="16.5" r="5.5"/></svg>
       <span id="docsTokenLabel">Set API Key</span>
     </button>
+    <a href="{{ route('nunu') }}">About Nunu</a>
     <a href="{{ route('home') }}">&larr; pakapay.ng</a>
     <a href="{{ route('contact') }}" class="docs-btn-signup">Contact us</a>
   </div>

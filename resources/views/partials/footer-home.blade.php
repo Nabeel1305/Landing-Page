@@ -9,6 +9,8 @@
         <h4>Product</h4>
         <a href="#features">How it works</a>
         <a href="{{ route('business') }}">Business</a>
+        <a href="{{ route('nunu') }}">Nunu for banks</a>
+        <a href="{{ route('docs.index') }}">Developer docs</a>
         <a href="#security">Security</a>
         <a href="#faq">FAQ</a>
       </div>

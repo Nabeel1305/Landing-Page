@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'home')->name('home');
 
 Route::view('/business.html', 'business')->name('business');
+Route::view('/nunu.html', 'nunu')->name('nunu');
 Route::view('/help.html', 'help')->name('help');
 Route::view('/pricing.html', 'pricing')->name('pricing');
 Route::view('/about.html', 'about')->name('about');

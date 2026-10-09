@@ -5,11 +5,11 @@
 @section('canonical', 'https://pakapay.ng/about.html')
 
 @push('jsonld')
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "PakaPay", "url": "https://pakapay.ng/", "logo": "https://pakapay.ng/og-image.png", "parentOrganization": {"@type": "Organization", "name": "Payce Financial Technologies Ltd"}}</script>
+<script type="application/ld+json">{"@@context": "https://schema.org", "@type": "Organization", "name": "PakaPay", "url": "https://pakapay.ng/", "logo": "https://pakapay.ng/og-image.png", "parentOrganization": {"@type": "Organization", "name": "Payce Financial Technologies Ltd"}}</script>
 @endpush
 
 @push('jsonld')
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pakapay.ng/"}, {"@type": "ListItem", "position": 2, "name": "About", "item": "https://pakapay.ng/about.html"}]}</script>
+<script type="application/ld+json">{"@@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pakapay.ng/"}, {"@type": "ListItem", "position": 2, "name": "About", "item": "https://pakapay.ng/about.html"}]}</script>
 @endpush
 
 @section('content')
@@ -36,7 +36,7 @@
     <p>PakaPay is a product of Payce Financial Technologies Ltd.</p>
 
     <h2>How we think about security</h2>
-    <p>Every transfer is signed by a hardware key that never leaves its vault, and every action is written into a record that locks itself. We built it this way because a wallet that's fast but easy to compromise isn't actually useful to anyone — see the full breakdown on the <a href="{{ route(\'home\') }}#security" style="color:var(--navy); font-weight:600; text-decoration:underline;">Security</a> section of the homepage.</p>
+    <p>Every transfer is signed by a hardware key that never leaves its vault, and every action is written into a record that locks itself. We built it this way because a wallet that's fast but easy to compromise isn't actually useful to anyone — see the full breakdown on the <a href="{{ route('home') }}#security" style="color:var(--navy); font-weight:600; text-decoration:underline;">Security</a> section of the homepage.</p>
 
     <h2>Get in touch</h2>
     <p>Questions about the company, partnerships, or press — reach out through the <a href="{{ route('contact') }}" style="color:var(--navy); font-weight:600; text-decoration:underline;">contact page</a>.</p>

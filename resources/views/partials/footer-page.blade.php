@@ -7,10 +7,12 @@
       </div>
       <div class="foot-col">
         <h4>Product</h4>
-        <a href="{{ route(\'home\') }}#features">How it works</a>
+        <a href="{{ route('home') }}#features">How it works</a>
         <a href="{{ route('business') }}">Business</a>
-        <a href="{{ route(\'home\') }}#security">Security</a>
-        <a href="{{ route(\'home\') }}#faq">FAQ</a>
+        <a href="{{ route('nunu') }}">Nunu for banks</a>
+        <a href="{{ route('docs.index') }}">Developer docs</a>
+        <a href="{{ route('home') }}#security">Security</a>
+        <a href="{{ route('home') }}#faq">FAQ</a>
       </div>
       <div class="foot-col">
         <h4>Company</h4>

@@ -5,15 +5,15 @@
 @section('canonical', 'https://pakapay.ng/')
 
 @push('jsonld')
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "PakaPay", "url": "https://pakapay.ng/", "logo": "https://pakapay.ng/og-image.png", "parentOrganization": {"@type": "Organization", "name": "Payce Financial Technologies Ltd"}}</script>
+<script type="application/ld+json">{"@@context": "https://schema.org", "@type": "Organization", "name": "PakaPay", "url": "https://pakapay.ng/", "logo": "https://pakapay.ng/og-image.png", "parentOrganization": {"@type": "Organization", "name": "Payce Financial Technologies Ltd"}}</script>
 @endpush
 
 @push('jsonld')
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "PakaPay", "applicationCategory": "FinanceApplication", "operatingSystem": "Android", "url": "https://pakapay.ng/", "description": "PakaPay is a mobile wallet built for Nigeria's markets. Send money by tap, scan, or offline dial \u2014 hardware-signed, even with zero data.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "NGN"}}</script>
+<script type="application/ld+json">{"@@context": "https://schema.org", "@type": "SoftwareApplication", "name": "PakaPay", "applicationCategory": "FinanceApplication", "operatingSystem": "Android", "url": "https://pakapay.ng/", "description": "PakaPay is a mobile wallet built for Nigeria's markets. Send money by tap, scan, or offline dial \u2014 hardware-signed, even with zero data.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "NGN"}}</script>
 @endpush
 
 @push('jsonld')
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is my money safe with PakaPay?", "acceptedAnswer": {"@type": "Answer", "text": "Every transfer is signed by a hardware key that never leaves AWS's vault, and every action is written into a record that locks itself \u2014 altering one entry breaks everything after it. Accounts, devices, and the whole system can each be frozen independently if something looks wrong."}}, {"@type": "Question", "name": "What does PakaPay cost?", "acceptedAnswer": {"@type": "Answer", "text": "Fees vary by the type of transfer and are shown before you confirm any payment \u2014 nothing is deducted without you seeing the amount first."}}, {"@type": "Question", "name": "Is PakaPay a bank?", "acceptedAnswer": {"@type": "Answer", "text": "No \u2014 PakaPay is a wallet built by Payce Financial Technologies Ltd on top of the bank accounts you already have. You link one or more bank accounts, and PakaPay moves money between them and your PayPoints."}}, {"@type": "Question", "name": "Does the offline rail use my airtime or data?", "acceptedAnswer": {"@type": "Answer", "text": "No. The payment is encoded into a signed tone sequence and carried over a normal phone call, the same way any voice call works \u2014 no data bundle required."}}, {"@type": "Question", "name": "What if I lose my phone?", "acceptedAnswer": {"@type": "Answer", "text": "You can freeze the device on its own without freezing your whole account, so whoever has your phone can't move money while you sort out a replacement."}}, {"@type": "Question", "name": "Is PakaPay available on iPhone?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet \u2014 PakaPay is on Android today, with iOS on the roadmap."}}]}</script>
+<script type="application/ld+json">{"@@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is my money safe with PakaPay?", "acceptedAnswer": {"@type": "Answer", "text": "Every transfer is signed by a hardware key that never leaves AWS's vault, and every action is written into a record that locks itself \u2014 altering one entry breaks everything after it. Accounts, devices, and the whole system can each be frozen independently if something looks wrong."}}, {"@type": "Question", "name": "What does PakaPay cost?", "acceptedAnswer": {"@type": "Answer", "text": "Fees vary by the type of transfer and are shown before you confirm any payment \u2014 nothing is deducted without you seeing the amount first."}}, {"@type": "Question", "name": "Is PakaPay a bank?", "acceptedAnswer": {"@type": "Answer", "text": "No \u2014 PakaPay is a wallet built by Payce Financial Technologies Ltd on top of the bank accounts you already have. You link one or more bank accounts, and PakaPay moves money between them and your PayPoints."}}, {"@type": "Question", "name": "Does the offline rail use my airtime or data?", "acceptedAnswer": {"@type": "Answer", "text": "No. The payment is encoded into a signed tone sequence and carried over a normal phone call, the same way any voice call works \u2014 no data bundle required."}}, {"@type": "Question", "name": "What if I lose my phone?", "acceptedAnswer": {"@type": "Answer", "text": "You can freeze the device on its own without freezing your whole account, so whoever has your phone can't move money while you sort out a replacement."}}, {"@type": "Question", "name": "Is PakaPay available on iPhone?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet \u2014 PakaPay is on Android today, with iOS on the roadmap."}}]}</script>
 @endpush
 
 @section('content')
@@ -255,6 +255,26 @@
       <h2 class="panel-title">Works even when the signal doesn't.</h2>
       <p>Every account and PayPoint gets its own QR code, so getting paid is just a scan away when you're online. And when you're not — PakaPay still works.</p>
       <a href="#offline-dial" class="btn btn-outline">See how offline pay works</a>
+    </div>
+  </div>
+</section>
+
+<section class="panel amber" id="nunu">
+  <div class="wrap panel-grid" data-stagger>
+    <div class="reveal">
+      <span class="section-label">For banks &amp; fintechs</span>
+      <h2 class="panel-title">Meet Nunu: offline payments as infrastructure.</h2>
+      <p>The same idea behind PakaPay's offline dial, packaged for institutions. Your app issues a one-time code through an API; your customer dials it with no data; your own system settles. Nunu never holds funds and fits beside the rails you already run.</p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="{{ route('nunu') }}" class="btn btn-dark">See how Nunu works</a>
+        <a href="{{ route('docs.index') }}" class="btn btn-outline">Read the documentation</a>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="sig-card" style="display:block; padding:28px;">
+        <span class="mark">issue → dial → settle</span>
+        <p style="margin:12px 0 0;"><strong>1.</strong> Your app calls <code>POST /codes</code> and gets a one-time code.<br><strong>2.</strong> The customer dials the voice number and keys it in — no data needed.<br><strong>3.</strong> Nunu verifies the call and your system captures the funds. A signed webhook tells you the result.</p>
+      </div>
     </div>
   </div>
 </section>

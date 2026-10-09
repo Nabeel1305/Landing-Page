@@ -8,6 +8,7 @@
       <a href="#features">How it works</a>
       <a href="#security">Security</a>
       <a href="{{ route('business') }}">Business</a>
+      <a href="{{ route('nunu') }}">Nunu</a>
       <a href="#faq">FAQ</a>
     </div>
     <a href="#download" class="nav-cta">Get the app →</a>
@@ -17,6 +18,7 @@
     <a href="#features">How it works</a>
     <a href="#security">Security</a>
     <a href="{{ route('business') }}">Business</a>
+      <a href="{{ route('nunu') }}">Nunu</a>
     <a href="#faq">FAQ</a>
     <a href="#download">Get the app</a>
   </div>

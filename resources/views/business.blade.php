@@ -5,11 +5,11 @@
 @section('canonical', 'https://pakapay.ng/business.html')
 
 @push('jsonld')
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "PakaPay", "url": "https://pakapay.ng/", "logo": "https://pakapay.ng/og-image.png", "parentOrganization": {"@type": "Organization", "name": "Payce Financial Technologies Ltd"}}</script>
+<script type="application/ld+json">{"@@context": "https://schema.org", "@type": "Organization", "name": "PakaPay", "url": "https://pakapay.ng/", "logo": "https://pakapay.ng/og-image.png", "parentOrganization": {"@type": "Organization", "name": "Payce Financial Technologies Ltd"}}</script>
 @endpush
 
 @push('jsonld')
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pakapay.ng/"}, {"@type": "ListItem", "position": 2, "name": "Business", "item": "https://pakapay.ng/business.html"}]}</script>
+<script type="application/ld+json">{"@@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pakapay.ng/"}, {"@type": "ListItem", "position": 2, "name": "Business", "item": "https://pakapay.ng/business.html"}]}</script>
 @endpush
 
 @section('content')
@@ -19,7 +19,7 @@
     <h1>A PayPoint for however you get paid.</h1>
     <p class="lede">A PayPoint is a standing account for money you collect regularly — a stall, a shop till, rent, a fundraiser. Set one up and it keeps its own QR code, its own running total, and its own history, separate from everything else you're holding.</p>
     <div class="cta-row" style="margin-top:24px; display:flex; gap:14px; flex-wrap:wrap;">
-      <a href="{{ route(\'home\') }}#download" class="btn btn-amber">Download PakaPay</a>
+      <a href="{{ route('home') }}#download" class="btn btn-amber">Download PakaPay</a>
       <a href="{{ route('help') }}" class="btn btn-outline">See setup help</a>
     </div>
   </div>
