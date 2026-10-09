@@ -18,7 +18,7 @@
   <tbody>
     <tr><td>The dialled number exists, is active, and the URL token matches</td><td>Call is refused (<code class="inline">403</code> to the telephony provider); counts against a per-address limit</td></tr>
     <tr><td>A tenant can be determined (own number, or short-code prefix on a shared number)</td><td>Silently ignored</td></tr>
-    <tr><td>Attempt limits: at most <strong>5 wrong guesses per caller</strong> in 10 minutes, and 120 redemptions per minute per organisation</td><td>Rejected; even a correct code is ignored while the caller is locked out</td></tr>
+    <tr><td>Attempt limits: at most <strong>5 wrong guesses per caller</strong> in 10 minutes. Callers who are not registered subscribers also share a small per-minute budget, so a flood of guesses from made-up numbers cannot crowd out registered payers</td><td>Rejected; even a correct code is ignored while the caller is locked out or the shared budget is used up</td></tr>
     <tr><td>The code exists for your organisation and is in state <code class="inline">issued</code></td><td>Rejected (unknown, used, cancelled)</td></tr>
     <tr><td>The code has not expired</td><td>Rejected</td></tr>
     <tr><td>If caller binding is on: the caller's number matches the subscriber's phone</td><td>Rejected</td></tr>

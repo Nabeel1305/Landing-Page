@@ -29,7 +29,7 @@
 ]" warning="Creates or updates a subscriber on your account." />
 
 <h2 id="caller-binding">Phone numbers and caller binding</h2>
-<p>When <strong>caller binding</strong> is switched on for your account (a setting PakaPay controls for you), a code only works if the call comes from the subscriber's registered phone number. Numbers are compared on their <strong>last ten digits</strong>, so <code class="inline">+2348012345678</code>, <code class="inline">2348012345678</code> and <code class="inline">08012345678</code> all match each other. This holds for Nigerian numbers; other numbering plans need a per-account rule — ask your PakaPay contact.</p>
+<p>When <strong>caller binding</strong> is switched on for your account (a setting PakaPay controls for you), a code only works if the call comes from the subscriber's registered phone number. Numbers are compared as <strong>full international numbers</strong>: <code class="inline">+2348012345678</code>, <code class="inline">2348012345678</code>, <code class="inline">08012345678</code> and <code class="inline">8012345678</code> all match each other (a number written without a country code is assumed to be Nigerian), but a number from another country never matches one that merely ends in the same digits. Register subscribers with the country code to avoid ambiguity.</p>
 <ul>
   <li>Binding <strong>on</strong>: a subscriber with no phone can never redeem a code.</li>
   <li>Binding <strong>off</strong>: the code alone authorises the payment. Caller ID can be spoofed, so keep codes short-lived. We recommend binding for retail use.</li>
