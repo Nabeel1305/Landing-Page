@@ -3,7 +3,7 @@
 return [
 
     // Root of the live API the "Try It" panels call. Set DOCS_API_BASE to your deployment, e.g. https://offline.example.com/api/v1
-    'api_base' => env('DOCS_API_BASE', 'https://nunu.pakapay.ng/api/v1'),
+    'api_base' => env('DOCS_API_BASE', 'https://nunu.pakapay.ng/api'),
 
     // Sidebar. section slug => icon (see shell.blade.php), title, pages (slug => title).
     // Each page is resources/views/docs/pages/{section}/{page}.blade.php
