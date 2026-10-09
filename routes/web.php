@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocsController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,8 @@ Route::post('/contact.html', [ContactController::class, 'store'])->name('contact
 
 // robots.txt and sitemap.xml are served directly from public/ by the webserver,
 // no routes needed for them.
+
+Route::get('/docs', [DocsController::class, 'index'])->name('docs.index');
+Route::get('/docs/{section}/{page}', [DocsController::class, 'show'])
+    ->where(['section' => '[a-z0-9-]+', 'page' => '[a-z0-9-]+'])
+    ->name('docs.show');
