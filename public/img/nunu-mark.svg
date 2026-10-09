@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" role="img" aria-label="nunu">
+  <rect x="0" y="6" width="52" height="52" rx="15" fill="#FFB400"/>
+  <path d="M17 18h6l3 8-4 2.4a15 15 0 0 0 7.6 7.6L33 32l8 3v6a3 3 0 0 1 -3 3C26 44 14 32 14 21a3 3 0 0 1 3 -3z" fill="none" stroke="#023240" stroke-width="3" stroke-linejoin="round"/>
+  <text x="66" y="46" font-family="'Plus Jakarta Sans','Inter',system-ui,sans-serif" font-size="40" font-weight="800" letter-spacing="-1" fill="#03556A">nunu</text>
+</svg>

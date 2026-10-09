@@ -270,11 +270,8 @@
         <a href="{{ route('docs.index') }}" class="btn btn-outline">Read the documentation</a>
       </div>
     </div>
-    <div class="reveal">
-      <div class="sig-card" style="display:block; padding:28px;">
-        <span class="mark">issue → dial → settle</span>
-        <p style="margin:12px 0 0;"><strong>1.</strong> Your app calls <code>POST /codes</code> and gets a one-time code.<br><strong>2.</strong> The customer dials the voice number and keys it in — no data needed.<br><strong>3.</strong> Nunu verifies the call and your system captures the funds. A signed webhook tells you the result.</p>
-      </div>
+    <div class="rounded-img reveal">
+      <img src="{{ asset('img/nunu-flow.svg') }}" alt="Diagram: a bank app issues a one-time code, the customer dials it from a basic phone with no data, and the bank's own system settles the payment" width="900" height="620" loading="lazy" style="height:auto; max-height:420px; object-fit:contain; background:#03556A;">
     </div>
   </div>
 </section>

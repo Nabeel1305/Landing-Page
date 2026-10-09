@@ -15,7 +15,8 @@
 @section('content')
 <section class="page-hero" id="main">
   <div class="wrap">
-    <span class="eyebrow">Nunu · For banks and fintechs</span>
+    <img src="{{ asset('img/nunu-mark.svg') }}" alt="nunu" width="150" height="44" style="display:block; margin-bottom:14px;">
+    <span class="eyebrow">For banks and fintechs</span>
     <h1>Let your customers pay with nothing but a phone call.</h1>
     <p class="lede">Nunu is PakaPay's offline payment infrastructure. Your app asks for a one-time code through a simple API; later, with no data connection at all, your customer dials a number and keys the code in. Nunu verifies the call and tells <em>your</em> system to move the money.</p>
     <div class="cta-row" style="margin-top:24px; display:flex; gap:14px; flex-wrap:wrap;">
@@ -27,6 +28,10 @@
 
 <section class="content">
   <div class="wrap">
+
+    <figure style="margin:0 0 36px;">
+      <img src="{{ asset('img/nunu-flow.svg') }}" alt="Diagram: a bank app issues a one-time code, the customer dials it from a basic phone with no data, and the bank's own system settles the payment" width="900" height="620" style="width:100%; height:auto; border-radius:22px; display:block;">
+    </figure>
 
     <h2>The problem Nunu solves</h2>
     <p>A large share of everyday payments happen where the network is patchy: markets, transport, rural areas, power cuts. When data drops, card and app payments fail. A basic phone call still works. Nunu turns a call into a safe payment instruction, so you can offer a fallback rail that works anywhere a customer can make a voice call.</p>

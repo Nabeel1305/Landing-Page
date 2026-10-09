@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" role="img" aria-labelledby="t d">
+  <title id="t">How Nunu works</title>
+  <desc id="d">A bank app issues a one-time code, the customer dials it from a basic phone with no data, and the bank's own system settles the payment.</desc>
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000" flood-opacity=".28"/></filter>
+    <style>
+      text{font-family:'Plus Jakarta Sans','Inter',system-ui,-apple-system,'Segoe UI',sans-serif}
+      .lab{font-size:15px;font-weight:700;fill:#fff;letter-spacing:.02em}
+      .sub{font-size:13px;fill:rgba(255,255,255,.72)}
+      .mono{font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
+    </style>
+  </defs>
+
+  <rect width="900" height="620" rx="28" fill="#03556A"/>
+  <path d="M0 400 H900 V592 a28 28 0 0 1 -28 28 H28 a28 28 0 0 1 -28 -28 Z" fill="#023240" opacity=".55"/>
+  <g opacity=".07" stroke="#fff" stroke-width="1">
+    <path d="M0 155H900M0 310H900M0 465H900M225 0V620M450 0V620M675 0V620"/>
+  </g>
+  <circle cx="770" cy="90" r="150" fill="#FFB400" opacity=".08"/>
+  <circle cx="110" cy="540" r="120" fill="#fff" opacity=".05"/>
+
+  <!-- Step labels -->
+  <g>
+    <circle cx="150" cy="70" r="16" fill="#FFB400"/><text x="150" y="76" text-anchor="middle" font-size="16" font-weight="800" fill="#023240">1</text>
+    <text x="178" y="76" class="lab">Issue a code</text>
+    <circle cx="403" cy="70" r="16" fill="#FFB400"/><text x="403" y="76" text-anchor="middle" font-size="16" font-weight="800" fill="#023240">2</text>
+    <text x="431" y="76" class="lab">Dial — no data</text>
+    <circle cx="640" cy="70" r="16" fill="#FFB400"/><text x="640" y="76" text-anchor="middle" font-size="16" font-weight="800" fill="#023240">3</text>
+    <text x="668" y="76" class="lab">Settle</text>
+  </g>
+
+  <!-- 1: bank app phone -->
+  <g filter="url(#sh)">
+    <rect x="70" y="120" width="190" height="380" rx="30" fill="#0B1F2A"/>
+    <rect x="80" y="130" width="170" height="360" rx="24" fill="#F6F7FA"/>
+    <rect x="135" y="138" width="60" height="8" rx="4" fill="#0B1F2A" opacity=".85"/>
+    <rect x="96" y="168" width="138" height="14" rx="7" fill="#03556A" opacity=".16"/>
+    <text x="165" y="226" text-anchor="middle" font-size="12" font-weight="700" fill="#69707E">YOUR BANK APP</text>
+    <rect x="96" y="246" width="138" height="78" rx="14" fill="#fff" stroke="#E3E6EC"/>
+    <text x="165" y="270" text-anchor="middle" font-size="11" fill="#69707E">One-time code</text>
+    <text x="165" y="301" text-anchor="middle" font-size="19" font-weight="700" fill="#03556A" class="mono">4820 1937</text>
+    <rect x="96" y="344" width="138" height="42" rx="21" fill="#FFB400"/>
+    <text x="165" y="371" text-anchor="middle" font-size="14" font-weight="800" fill="#023240">Pay ₦2,500</text>
+    <rect x="96" y="404" width="138" height="10" rx="5" fill="#03556A" opacity=".1"/>
+    <rect x="96" y="424" width="96" height="10" rx="5" fill="#03556A" opacity=".1"/>
+  </g>
+
+  <!-- arrow 1 → 2 -->
+  <path d="M278 300 C 320 300, 330 300, 366 300" stroke="#FFB400" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9" fill="none"/>
+  <path d="M358 290 L372 300 L358 310" stroke="#FFB400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- 2: basic phone + sound waves -->
+  <g filter="url(#sh)">
+    <rect x="372" y="170" width="150" height="300" rx="26" fill="#0B1F2A"/>
+    <rect x="384" y="190" width="126" height="86" rx="10" fill="#C9E7DF"/>
+    <text x="447" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#023240">Calling</text>
+    <text x="447" y="246" text-anchor="middle" font-size="15" font-weight="800" fill="#023240" class="mono">0700 000 0000</text>
+    <text x="447" y="264" text-anchor="middle" font-size="11" fill="#2E6B5C">no data connection</text>
+    <g fill="#1B2D36">
+      <rect x="386" y="294" width="34" height="26" rx="8"/><rect x="430" y="294" width="34" height="26" rx="8"/><rect x="474" y="294" width="34" height="26" rx="8"/>
+      <rect x="386" y="330" width="34" height="26" rx="8"/><rect x="430" y="330" width="34" height="26" rx="8"/><rect x="474" y="330" width="34" height="26" rx="8"/>
+      <rect x="386" y="366" width="34" height="26" rx="8"/><rect x="430" y="366" width="34" height="26" rx="8"/><rect x="474" y="366" width="34" height="26" rx="8"/>
+    </g>
+    <rect x="430" y="402" width="34" height="26" rx="8" fill="#FFB400"/>
+    <text x="447" y="421" text-anchor="middle" font-size="14" font-weight="800" fill="#023240">#</text>
+  </g>
+  <g fill="none" stroke="#FFB400" stroke-linecap="round" stroke-width="4">
+    <path d="M552 270 Q 568 300 552 330" opacity=".95"/>
+    <path d="M574 250 Q 600 300 574 350" opacity=".65"/>
+    <path d="M596 230 Q 632 300 596 370" opacity=".35"/>
+  </g>
+
+  <!-- arrow 2 → 3 -->
+  <path d="M628 300 L690 300" stroke="#FFB400" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9" fill="none" opacity="0"/>
+
+  <!-- 3: bank building with Nunu verify -->
+  <g filter="url(#sh)">
+    <rect x="652" y="206" width="190" height="270" rx="22" fill="#F6F7FA"/>
+    <path d="M747 150 L852 206 H642 Z" fill="#FFB400"/>
+    <rect x="652" y="206" width="190" height="14" fill="#E6A100"/>
+    <g fill="#03556A">
+      <rect x="678" y="244" width="22" height="150" rx="5"/><rect x="722" y="244" width="22" height="150" rx="5"/>
+      <rect x="766" y="244" width="22" height="150" rx="5"/><rect x="810" y="244" width="22" height="150" rx="5" opacity=".0"/>
+    </g>
+    <rect x="662" y="404" width="170" height="14" rx="4" fill="#03556A"/>
+    <rect x="652" y="426" width="190" height="50" rx="0" fill="#03556A" opacity=".1"/>
+    <circle cx="747" cy="180" r="0" fill="none"/>
+    <!-- verified badge -->
+    <circle cx="824" cy="228" r="26" fill="#1A9D6B"/>
+    <path d="M812 228 l9 9 l17 -19" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="747" y="510" text-anchor="middle" class="lab">Your core system</text>
+  <text x="747" y="530" text-anchor="middle" class="sub">holds &amp; captures the funds</text>
+
+  <!-- Nunu verifier in the middle bottom -->
+  <g>
+    <rect x="300" y="520" width="300" height="52" rx="26" fill="rgba(255,255,255,.10)" stroke="rgba(255,255,255,.22)"/>
+    <circle cx="332" cy="546" r="14" fill="#FFB400"/>
+    <path d="M326 546 l4 4 l8 -9" stroke="#023240" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="356" y="542" class="lab">Nunu verifies the call</text>
+    <text x="356" y="560" class="sub">valid · unused · unexpired · right caller</text>
+  </g>
+  <path d="M600 546 H660 Q747 546 747 490" stroke="#FFB400" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9" fill="none"/>
+  <path d="M447 470 V520" stroke="#FFB400" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9" fill="none"/>
+
+  <text x="165" y="530" text-anchor="middle" class="lab">Your app</text>
+  <text x="165" y="550" text-anchor="middle" class="sub">asks Nunu for a code</text>
+</svg>
