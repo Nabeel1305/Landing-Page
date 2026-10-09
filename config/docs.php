@@ -2,90 +2,73 @@
 
 return [
 
-    // Root of the live API the "Try It" panels call. Override per environment.
-    'api_base' => env('DOCS_API_BASE', 'https://nunu.pakapay.ng/api'),
+    // Root of the live API the "Try It" panels call. Set DOCS_API_BASE to your deployment, e.g. https://offline.example.com/api/v1
+    'api_base' => env('DOCS_API_BASE', 'https://api.example.com/api/v1'),
 
     // Sidebar. section slug => icon (see shell.blade.php), title, pages (slug => title).
     // Each page is resources/views/docs/pages/{section}/{page}.blade.php
     'sections' => [
         'getting-started' => [
-            'title' => 'Getting Started',
-            'icon' => 'home',
+            'title' => 'Getting Started', 'icon' => 'home',
             'pages' => [
                 'introduction' => 'Introduction',
-                'response-format' => 'Response Format',
+                'quickstart' => 'Quickstart',
                 'authentication' => 'Authentication',
-                'errors' => 'Errors & Status Codes',
-                'rate-limits' => 'Rate Limits',
+                'idempotency' => 'Idempotency',
+                'errors' => 'Errors & Rate Limits',
             ],
         ],
-        'account' => [
-            'title' => 'Account & Profile',
-            'icon' => 'user',
+        'api' => [
+            'title' => 'API Reference', 'icon' => 'bolt',
             'pages' => [
-                'current-user' => 'Current User',
-                'profile' => 'Profile & Contact Details',
-                'bank-accounts' => 'Bank Accounts',
+                'subscribers' => 'Subscribers',
+                'merchants' => 'Merchants',
+                'codes' => 'Payment Codes',
+                'transactions' => 'Transactions',
             ],
         ],
-        'payments' => [
-            'title' => 'Payments',
-            'icon' => 'wallet',
+        'webhooks' => [
+            'title' => 'Webhooks', 'icon' => 'bell',
             'pages' => [
-                'sending' => 'Sending Money',
-                'receiving' => 'Receiving Money (QR)',
-                'activity' => 'Activity & Reports',
+                'endpoints' => 'Endpoints',
+                'events' => 'Events',
+                'verifying' => 'Verifying Signatures',
+                'delivery' => 'Delivery & Retries',
             ],
         ],
-        'payment-points' => [
-            'title' => 'Payment Points',
-            'icon' => 'store',
+        'payers' => [
+            'title' => 'Payers & Settlement', 'icon' => 'phone',
             'pages' => [
-                'overview' => 'Overview & Management',
-                'sharing' => 'Sharing & Reporting',
+                'voice' => 'The Payer\'s Call',
+                'numbers' => 'Voice Numbers & Routing',
+                'settlement' => 'Settlement Adapter',
+                'lifecycle' => 'Code Lifecycle & Reconciliation',
+                'going-live' => 'Sandbox & Going Live',
             ],
         ],
-        'security' => [
-            'title' => 'Security & Identity',
-            'icon' => 'shield',
+        'portal' => [
+            'title' => 'Tenant Portal', 'icon' => 'store',
             'pages' => [
-                'settings' => 'Security Settings',
-                'pin-management' => 'PIN & Spending Limits',
-                'kyc' => 'KYC Verification',
+                'overview' => 'Overview & Roles',
+                'payments' => 'Payments & Reporting',
+                'developers' => 'Developer Tools',
+                'team' => 'Team & Security',
             ],
         ],
-        'offline' => [
-            'title' => 'Offline Payments',
-            'icon' => 'phone',
+        'operators' => [
+            'title' => 'Operators', 'icon' => 'cog',
             'pages' => [
-                'overview' => 'How It Works',
-                'device-keys' => 'Device Keys',
-                'code-format' => 'Code Format & Signing',
-                'voice-webhook' => 'Voice Webhook',
-            ],
-        ],
-        'integrations' => [
-            'title' => 'Partners & Webhooks',
-            'icon' => 'bell',
-            'pages' => [
-                'webhooks' => 'Inbound Webhooks',
-                'services' => 'Third-party Services',
-            ],
-        ],
-        'platform' => [
-            'title' => 'Platform (Internal)',
-            'icon' => 'cog',
-            'pages' => [
-                'security-model' => 'Security Model',
-                'fraud-engine' => 'Fraud Engine',
-                'admin-dashboard' => 'Admin Dashboard',
+                'console' => 'Operator Console',
                 'configuration' => 'Configuration',
+                'security' => 'Security Model',
+                'commands' => 'Commands & Scheduling',
             ],
         ],
     ],
 
     // Single-page entries shown below the divider. slug => label (page slug == section slug).
     'standalone' => [
+        'clients' => 'Client Libraries',
         'changelog' => 'Changelog',
     ],
 ];

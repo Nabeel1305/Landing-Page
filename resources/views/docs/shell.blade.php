@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ $title }} — PakaPay Developer Docs</title>
-<meta name="description" content="PakaPay developer documentation — mobile API, payments, payment points, KYC, offline (voice) payments, webhooks and the security model.">
+<title>{{ $title }} — PakaPay Offline Payments API</title>
+<meta name="description" content="PakaPay Offline Payments API documentation — issue one-time payment codes, receive signed webhooks, settle through your own system. Includes the tenant portal and operator guides.">
 <link rel="canonical" href="{{ url()->current() }}">
 
 <meta name="theme-color" content="#03556A">
@@ -47,7 +47,7 @@
   <div class="docs-topbar-right">
     <button type="button" class="docs-token-btn" id="docsTokenBtn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-9.6 9.6"/><circle cx="7.5" cy="16.5" r="5.5"/></svg>
-      <span id="docsTokenLabel">Set Bearer Token</span>
+      <span id="docsTokenLabel">Set API Key</span>
     </button>
     <a href="{{ route('home') }}">&larr; pakapay.ng</a>
     <a href="{{ route('contact') }}" class="docs-btn-signup">Contact us</a>
@@ -55,10 +55,10 @@
 
   <div class="docs-token-panel" id="docsTokenPanel">
     <div class="docs-token-panel-inner">
-      <label for="docsTokenInput">Bearer token</label>
-      <p>Used by every "Try It" panel across these docs to call <code>{{ parse_url(config('docs.api_base'), PHP_URL_HOST) }}</code> for real. Get one from <a href="{{ route('docs.show', ['section' => 'getting-started', 'page' => 'authentication']) }}">Authentication</a> — log in (or finish registration), then paste the <code>data.token</code> value here. Stored only in this browser (localStorage), never sent anywhere but the PakaPay API, and auto-cleared after 8 hours.</p>
+      <label for="docsTokenInput">API key</label>
+      <p>Used by every "Try It" panel across these docs to call <code>{{ config('docs.api_base') }}</code> for real. Paste an API key (<code>opk_…</code>) from the tenant portal or from your platform operator — use a <strong>sandbox</strong> key while exploring. Stored only in this browser (localStorage), sent only to that API, and auto-cleared after 8 hours.</p>
       <div class="docs-token-row">
-        <input type="password" id="docsTokenInput" placeholder="1|k3j2h4g5f6...">
+        <input type="password" id="docsTokenInput" placeholder="opk_1a2b3c4d_…">
         <button type="button" id="docsTokenSave">Save</button>
         <button type="button" id="docsTokenClear">Clear</button>
       </div>
@@ -185,11 +185,11 @@
     var s = readStore();
     if (s) {
       var hoursLeft = Math.max(1, Math.round((EXPIRY_MS - (Date.now() - s.savedAt)) / 3600000));
-      label.textContent = 'Token Set (expires in ' + hoursLeft + 'h)';
+      label.textContent = 'Key set (expires in ' + hoursLeft + 'h)';
       btn.classList.add('is-set');
       input.value = s.token;
     } else {
-      label.textContent = 'Set Bearer Token';
+      label.textContent = 'Set API Key';
       btn.classList.remove('is-set');
     }
   }
@@ -280,6 +280,7 @@
         var name = input.dataset.fieldName;
         var loc = input.dataset.fieldIn;
         var val = input.value;
+        if (name === 'Idempotency-Key' && !val.trim() && window.crypto && crypto.randomUUID) { val = crypto.randomUUID(); input.value = val; }
         var field = input.closest('.try-it-field');
         if (input.hasAttribute('data-required') && !val.trim()) {
           if (field) field.classList.add('has-error');
