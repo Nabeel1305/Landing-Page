@@ -37,7 +37,7 @@
 <div class="docs-table-wrap"><table class="docs-table">
   <thead><tr><th>Limit</th><th>Default</th><th>Notes</th></tr></thead>
   <tbody>
-    <tr><td>API requests</td><td>300 / minute <strong>per organisation</strong></td><td>One busy tenant cannot starve another. Configurable by the operator (<code class="inline">PLATFORM_API_PER_MINUTE</code>).</td></tr>
+    <tr><td>API requests</td><td>300 / minute <strong>per organisation</strong></td><td>One busy tenant cannot starve another. Ask PakaPay if you need a higher limit.</td></tr>
     <tr><td>Invalid keys</td><td>30 / minute per source address</td><td>Protects the key lookup; legitimate traffic never hits it.</td></tr>
   </tbody>
 </table></div>

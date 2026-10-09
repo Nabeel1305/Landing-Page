@@ -5,7 +5,7 @@
 <p>Every organisation starts in the <strong>sandbox</strong> (the portal header shows a yellow <em>Sandbox</em> badge). In the sandbox:</p>
 <ul>
   <li>the settlement adapter is the simulator — nothing real moves;</li>
-  <li>the platform operator can make holds or captures fail so you can test every path;</li>
+  <li>PakaPay can make holds or captures fail on request so you can test every path;</li>
   <li>everything else — codes, calls, webhooks, the portal — behaves exactly as in production.</li>
 </ul>
 
@@ -21,7 +21,7 @@
 </ol>
 
 <h2 id="switch">The switch</h2>
-<p>Going live is an <strong>operator action</strong> — you cannot do it yourself. The operator moves the account to <code class="inline">live</code> and assigns your real adapter in the same step. The console refuses to set an account live while it still uses the sandbox adapter, and the engine independently refuses to run a live account on the simulator.</p>
+<p>Going live is done <strong>by PakaPay</strong> — you cannot do it yourself. PakaPay moves the account to <code class="inline">live</code> and assigns your real adapter in the same step. A live account can't use the sandbox adapter, and the engine independently refuses to run a live account on the simulator.</p>
 <x-docs.callout type="warn" title="Today">
   <p>No real settlement adapter exists yet, so accounts can't be made live. Once your system's API is available, the adapter is built against it, tested in your sandbox, then switched on.</p>
 </x-docs.callout>
@@ -32,7 +32,7 @@
   <tbody>
     <tr><td>Money</td><td>Simulated</td><td>Real holds and transfers in your system</td></tr>
     <tr><td>API keys</td><td colspan="2">Keys belong to the account, not to an environment: switching the account live changes what your existing keys do. Create fresh keys for production at go-live and revoke the sandbox ones.</td></tr>
-    <tr><td>Hold/capture failures</td><td>Only when the operator injects them</td><td>Whatever your system really answers</td></tr>
+    <tr><td>Hold/capture failures</td><td>Only when PakaPay injects them</td><td>Whatever your system really answers</td></tr>
     <tr><td>Endpoints, payloads, webhooks, states</td><td colspan="2">Identical</td></tr>
   </tbody>
 </table></div>

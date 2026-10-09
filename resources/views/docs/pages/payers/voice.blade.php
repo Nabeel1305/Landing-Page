@@ -26,8 +26,8 @@
 </table></div>
 <p>When every check passes, in one database transaction the code becomes <code class="inline">redeemed</code> and a <code class="inline">pending</code> transaction is created; then <code class="inline">code.redeemed</code> is sent and your system is asked to <strong>capture</strong>. A code can be redeemed <strong>once</strong>: if twelve calls arrive at the same instant, exactly one wins.</p>
 
-<h2 id="telephony">Telephony provider</h2>
-<p>The platform is wired to <a href="https://africastalking.com" target="_blank">Africa's Talking</a> voice. The provider posts to the platform's callback URL (<code class="inline">POST /api/voice/africastalking?token=…</code>), first with no digits (the platform answers with a <code class="inline">GetDigits</code> prompt), then with <code class="inline">dtmfDigits</code>. Parameters used: <code class="inline">destinationNumber</code>, <code class="inline">callerNumber</code>, <code class="inline">dtmfDigits</code>, <code class="inline">sessionId</code>. Other providers need their own small adapter. Setting this up is an operator task — see <a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'numbers']) }}">Voice Numbers &amp; Routing</a>.</p>
+<h2 id="telephony">Telephony</h2>
+<p>Calls are handled by the platform's telephony provider (Africa's Talking voice); you never integrate with it directly.</p>
 
 <h2 id="show-the-code">Showing the code in your app</h2>
 <ul>

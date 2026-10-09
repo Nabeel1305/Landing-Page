@@ -5,7 +5,7 @@
 
 <h2 id="before-you-start">Before you start</h2>
 <ul>
-  <li>An <strong>API key</strong> (<code class="inline">opk_…</code>). The platform operator creates your organisation and gives you a first key, or invites you to the <a href="{{ route('docs.show', ['section' => 'portal', 'page' => 'overview']) }}">portal</a> where you can create more.</li>
+  <li>An <strong>API key</strong> (<code class="inline">opk_…</code>) for a <strong>sandbox</strong> account. PakaPay gives you the first one; you can create more in the <a href="{{ route('docs.show', ['section' => 'portal', 'page' => 'developers']) }}">developer portal</a>.</li>
   <li>A public <strong>HTTPS</strong> address that can receive webhooks.</li>
 </ul>
 
@@ -53,7 +53,7 @@ curl -X PUT $API/merchants/shop-7 \
 <p><code class="inline">amount_minor</code> is in the smallest unit (kobo), so <code class="inline">250000</code> is ₦2,500.00. The <code class="inline">code</code> is shown only in this response — it cannot be fetched again.</p>
 
 <h2 id="step-4">4. The payer dials</h2>
-<p>In production the payer phones the voice number and keys <code class="inline">482019377104#</code>. For your sandbox, ask your PakaPay contact for a <strong>test voice number</strong> and call it from the phone registered to your subscriber (or have them post to the number's callback URL, which only the operator knows). See <a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'voice']) }}">The Payer's Call</a>.</p>
+<p>In production the payer phones the voice number and keys <code class="inline">482019377104#</code>. For your sandbox, ask your PakaPay contact for a <strong>test voice number</strong> and call it from the phone registered to your subscriber (or have them post to the number's callback URL, which only PakaPay knows). See <a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'voice']) }}">The Payer's Call</a>.</p>
 
 <h2 id="step-5">5. Receive the webhooks</h2>
 <p>Your endpoint gets <code class="inline">code.redeemed</code> immediately, then <code class="inline">transaction.settled</code> (or <code class="inline">transaction.failed</code>) once your system answers the capture. Verify the signature, answer <code class="inline">2xx</code>, and tell your customer.</p>

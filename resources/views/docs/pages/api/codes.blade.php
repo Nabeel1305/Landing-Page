@@ -40,7 +40,7 @@
 }</x-docs.code>
 <ul>
   <li><code class="inline">code</code> is the digits the payer dials. It appears <strong>only in this response</strong> (and in an idempotent replay of it). It is stored as a keyed hash and can never be read back — not by you, not by PakaPay staff.</li>
-  <li>Code length is 12 digits by default (operator setting). On a <em>shared</em> voice number the code is prefixed with your 4-digit short code; see <a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'numbers']) }}">Voice Numbers</a>. Always show the payer the <code class="inline">code</code> exactly as returned.</li>
+  <li>Code length is 12 digits by default (set per platform). On a <em>shared</em> voice number the code is prefixed with your 4-digit short code; see <a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'numbers']) }}">Voice Numbers</a>. Always show the payer the <code class="inline">code</code> exactly as returned.</li>
   <li><code class="inline">expires_at</code> is now plus your account's code lifetime (default 10 minutes).</li>
 </ul>
 <x-docs.try-it method="POST" path="/codes" :fields="[

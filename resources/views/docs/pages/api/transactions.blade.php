@@ -41,4 +41,4 @@
 </ul>
 <p>Prefer webhooks over polling; read this endpoint when you need the current truth, for instance after missing a webhook.</p>
 
-<p>There is no list endpoint: your team browses and exports transactions in the <a href="{{ route('docs.show', ['section' => 'portal', 'page' => 'payments']) }}">portal</a>.</p>
+<p>There is no list endpoint. Keep your own record of each payment, keyed by the transaction <code class="inline">id</code> from the webhooks.</p>

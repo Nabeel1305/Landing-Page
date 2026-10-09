@@ -32,14 +32,14 @@
   <li><strong>A small REST API</strong> — subscribers, merchants, codes, transactions, webhook endpoints.</li>
   <li><strong>Signed, retried webhooks</strong> with a verification helper for PHP and JavaScript (<a href="{{ route('docs.show', ['section' => 'clients', 'page' => 'clients']) }}">Client Libraries</a>).</li>
   <li><strong>Safe retries</strong> — every issue/cancel call is idempotent.</li>
-  <li><strong>A tenant portal</strong> at <code class="inline">/portal</code> where your team sees transactions, codes, webhook deliveries and the audit log, and manages API keys and webhook endpoints. See <a href="{{ route('docs.show', ['section' => 'portal', 'page' => 'overview']) }}">Tenant Portal</a>.</li>
+  <li><strong>A developer portal</strong> where you manage API keys and webhook endpoints, send test events and inspect every delivery. See <a href="{{ route('docs.show', ['section' => 'portal', 'page' => 'developers']) }}">Keys, Webhooks &amp; Logs</a>.</li>
   <li><strong>A sandbox</strong> that simulates your core system, including failures, so you can test end to end before connecting the real thing.</li>
 </ul>
 
-<h2 id="who-is-this-for">Who reads what</h2>
+<h2 id="where-to-start">Where to start</h2>
 <ul>
-  <li><strong>Integrating developers</strong> — start with the <a href="{{ route('docs.show', ['section' => 'getting-started', 'page' => 'quickstart']) }}">Quickstart</a>, then the API Reference and Webhooks.</li>
-  <li><strong>Teams connecting a core banking system</strong> — <a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'settlement']) }}">Settlement Adapter</a> and <a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'going-live']) }}">Going Live</a>.</li>
-  <li><strong>Operations and support staff</strong> — the <a href="{{ route('docs.show', ['section' => 'portal', 'page' => 'overview']) }}">Tenant Portal</a> guides.</li>
-  <li><strong>PakaPay platform operators</strong> — the <em>Operators</em> section.</li>
+  <li><a href="{{ route('docs.show', ['section' => 'getting-started', 'page' => 'quickstart']) }}">Quickstart</a> — a sandbox payment in six steps.</li>
+  <li><a href="{{ route('docs.show', ['section' => 'webhooks', 'page' => 'verifying']) }}">Verifying webhook signatures</a> — do this before trusting any event.</li>
+  <li><a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'settlement']) }}">Settlement Adapter</a> — what your core system must provide (hold, capture, release, status).</li>
+  <li><a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'going-live']) }}">Going live</a> — the checklist.</li>
 </ul>

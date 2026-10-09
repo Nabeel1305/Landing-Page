@@ -9,7 +9,7 @@
 
 <h2 id="getting-keys">Getting and managing keys</h2>
 <ul>
-  <li>The platform operator gives you the <strong>first key</strong> when your organisation is created.</li>
+  <li>PakaPay gives you the <strong>first key</strong> when your organisation is created.</li>
   <li>After that, owners and developers create and revoke keys in the portal under <a href="{{ route('docs.show', ['section' => 'portal', 'page' => 'developers']) }}">Developer Tools</a>. A key is displayed once, at creation.</li>
   <li>Use <strong>one key per system</strong> (e.g. "production core banking", "staging"), so you can revoke one without stopping the others.</li>
   <li>Revoking is immediate: the next request with that key gets <code class="inline">401</code>.</li>

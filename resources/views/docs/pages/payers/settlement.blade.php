@@ -56,7 +56,7 @@ cancel / expiry ───── release ─────────▶  free the
 no answer to capture ─ status ─────────▶  captured | released | held | unknown   (every 5 min)</x-docs.code>
 
 <h2 id="sandbox">The sandbox adapter</h2>
-<p>For development and sandbox accounts the platform simulates your system. Nothing is stored, and the operator can make it misbehave by setting these on the account, so you can test failure handling end to end:</p>
+<p>For development and sandbox accounts the platform simulates your system. Nothing is stored, and PakaPay can make it misbehave by setting these on your account, so you can test failure handling end to end:</p>
 <div class="docs-table-wrap"><table class="docs-table">
   <thead><tr><th>Setting</th><th>Effect</th></tr></thead>
   <tbody>

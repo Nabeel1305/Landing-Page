@@ -18,8 +18,8 @@
     <tr><td>7</td><td>12 hours later</td></tr>
   </tbody>
 </table></div>
-<p>After the last failure the delivery is marked <code class="inline">failed</code> and is not retried automatically. The schedule is an operator setting (<code class="inline">PLATFORM_WEBHOOK_BACKOFF</code>), so your deployment may differ.</p>
-<p>Each retry carries the <strong>same event id</strong> and a freshly signed timestamp. Retries run on a queue worker; the operator must keep one running.</p>
+<p>After the last failure the delivery is marked <code class="inline">failed</code> and is not retried automatically.</p>
+<p>Each retry carries the <strong>same event id</strong> and a freshly signed timestamp.</p>
 
 <h2 id="log">Delivery log</h2>
 <p>Every delivery is recorded with its status (<code class="inline">pending</code>, <code class="inline">delivered</code>, <code class="inline">failed</code>), the number of attempts, the last HTTP status or error, the exact payload sent, and timestamps. You see it in the portal under <em>Deliveries</em>. Finished deliveries are kept for <strong>30 days</strong>, then removed.</p>

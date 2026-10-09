@@ -29,7 +29,7 @@
 ]" warning="Creates or updates a subscriber on your account." />
 
 <h2 id="caller-binding">Phone numbers and caller binding</h2>
-<p>When <strong>caller binding</strong> is switched on for your account (an operator setting), a code only works if the call comes from the subscriber's registered phone number. Numbers are compared on their <strong>last ten digits</strong>, so <code class="inline">+2348012345678</code>, <code class="inline">2348012345678</code> and <code class="inline">08012345678</code> all match each other. This holds for Nigerian numbers; other numbering plans need a per-account rule — ask your PakaPay contact.</p>
+<p>When <strong>caller binding</strong> is switched on for your account (a setting PakaPay controls for you), a code only works if the call comes from the subscriber's registered phone number. Numbers are compared on their <strong>last ten digits</strong>, so <code class="inline">+2348012345678</code>, <code class="inline">2348012345678</code> and <code class="inline">08012345678</code> all match each other. This holds for Nigerian numbers; other numbering plans need a per-account rule — ask your PakaPay contact.</p>
 <ul>
   <li>Binding <strong>on</strong>: a subscriber with no phone can never redeem a code.</li>
   <li>Binding <strong>off</strong>: the code alone authorises the payment. Caller ID can be spoofed, so keep codes short-lived. We recommend binding for retail use.</li>
@@ -37,4 +37,4 @@
 
 <h2 id="errors">Errors</h2>
 <p><code class="inline">422</code> with <code class="inline">{ message, errors }</code> if <code class="inline">phone</code> is not a string of up to 32 characters. See <a href="{{ route('docs.show', ['section' => 'getting-started', 'page' => 'errors']) }}">Errors</a>.</p>
-<p>There is no endpoint to list or delete subscribers through the API; your team can browse them (with masked phone numbers) in the <a href="{{ route('docs.show', ['section' => 'portal', 'page' => 'payments']) }}">portal</a>.</p>
+<p>There is no endpoint to list or delete subscribers; your system is the source of truth for who they are.</p>

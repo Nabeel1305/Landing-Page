@@ -29,8 +29,5 @@
 <ul>
   <li>Webhooks announce each transition.</li>
   <li><code class="inline">GET /codes/{id}</code> and <code class="inline">GET /transactions/{id}</code> give the current truth.</li>
-  <li>The portal shows lifecycle timelines, pending counts ("waiting on you") and recent failures.</li>
 </ul>
 
-<h2 id="audit">Audit trail</h2>
-<p>Every transition writes a tamper-evident entry to your organisation's <a href="{{ route('docs.show', ['section' => 'portal', 'page' => 'team']) }}#audit">audit log</a>: <code class="inline">code.issued</code>, <code class="inline">code.redeemed</code>, <code class="inline">code.cancelled</code>, <code class="inline">code.expired</code>, <code class="inline">transaction.settled</code>, <code class="inline">transaction.failed</code>, <code class="inline">transaction.needs_review</code>.</p>

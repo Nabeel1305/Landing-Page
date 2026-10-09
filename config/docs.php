@@ -47,21 +47,9 @@ return [
             ],
         ],
         'portal' => [
-            'title' => 'Tenant Portal', 'icon' => 'store',
+            'title' => 'Developer Portal', 'icon' => 'store',
             'pages' => [
-                'overview' => 'Overview & Roles',
-                'payments' => 'Payments & Reporting',
-                'developers' => 'Developer Tools',
-                'team' => 'Team & Security',
-            ],
-        ],
-        'operators' => [
-            'title' => 'Operators', 'icon' => 'cog',
-            'pages' => [
-                'console' => 'Operator Console',
-                'configuration' => 'Configuration',
-                'security' => 'Security Model',
-                'commands' => 'Commands & Scheduling',
+                'developers' => 'Keys, Webhooks & Logs',
             ],
         ],
     ],
