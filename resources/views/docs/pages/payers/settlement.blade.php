@@ -14,13 +14,13 @@
     <tr>
       <td><code class="inline">hold</code></td>
       <td>Inside <code class="inline">POST /codes</code>, before a code exists</td>
-      <td>A reference for the hold (the code's UUID), <code class="inline">source_account_reference</code>, amount in minor units, currency</td>
+      <td>A reference for the hold (the code's UUID), the <strong>subscriber's account</strong> (account number and bank code, plus your optional <code class="inline">source_account_reference</code> label), amount in minor units, currency</td>
       <td>OK + a <strong>hold reference</strong>, or rejected + a reason (shown to you as <code class="inline">settlement_rejected</code>)</td>
     </tr>
     <tr>
       <td><code class="inline">capture</code></td>
       <td>Right after a call is verified</td>
-      <td>The hold reference, the merchant's <code class="inline">account_reference</code>, the <strong>transaction reference</strong> (<code class="inline">TXN-…</code>)</td>
+      <td>The hold reference, the <strong>merchant's account</strong> (account number and bank code, plus its optional <code class="inline">account_reference</code> label — as frozen on the code when it was issued), the <strong>transaction reference</strong> (<code class="inline">TXN-…</code>)</td>
       <td>OK + a <strong>settlement reference</strong> (→ <code class="inline">transaction.settled</code>), or rejected + a reason (→ <code class="inline">transaction.failed</code>)</td>
     </tr>
     <tr>

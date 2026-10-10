@@ -31,8 +31,9 @@
 
 <h2 id="show-the-code">Showing the code in your app</h2>
 <ul>
+  <li><strong>Use the fields from <code class="inline">POST /codes</code>.</strong> <code class="inline">voice_number</code> is the number to show, <code class="inline">dial_string</code> is number plus code ready for a dialler, and <code class="inline">dial_uri</code> is a <code class="inline">tel:</code> link you can put behind a "Call to pay" button.</li>
   <li>Display the <code class="inline">code</code> exactly as returned, grouped for readability if you like (the platform strips everything but digits).</li>
   <li>Show the voice number next to it, and a countdown to <code class="inline">expires_at</code>.</li>
-  <li>If the app is a smartphone app, a tap-to-dial link such as <code class="inline">tel:+2347000000000,,,482019377104#</code> (commas are pauses) dials and keys the code for them.</li>
+  <li>On a smartphone, a button that opens <code class="inline">dial_uri</code> rings the number and keys the code for the payer (the commas are pauses).</li>
   <li>Offer "Cancel" which calls <code class="inline">POST /codes/{id}/cancel</code>.</li>
 </ul>

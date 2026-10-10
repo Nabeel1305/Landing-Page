@@ -9,8 +9,8 @@
 
 const client = new Client({ apiKey: process.env.OPK, baseUrl: '{{ config('docs.api_base') }}' });
 
-await client.upsertSubscriber('cust-42', '+2348012345678');
-await client.upsertMerchant('shop-7', 'Corner Shop', 'acct-9001');
+await client.upsertSubscriber('cust-42', { accountNumber: '2000000001', bankCode: '058', phone: '+2348012345678' });
+await client.upsertMerchant('shop-7', { name: 'Corner Shop', accountNumber: '3000000001', bankCode: '011' });
 const endpoint = await client.createWebhookEndpoint('https://you.example/hooks/offline', ['transaction.settled']);
 // endpoint.secret is shown once — store it
 
@@ -18,7 +18,7 @@ try {
   const key = crypto.randomUUID();                       // store it with your payment attempt
   const issued = await client.issueCode({
     subscriber_reference: 'cust-42', merchant_reference: 'shop-7',
-    amount_minor: 250000, currency: 'NGN', source_account_reference: 'acct-1234',
+    amount_minor: 250000, currency: 'NGN',
   }, key);                                               // omit the key to have one generated
   console.log(issued.code, issued.expires_at);
 } catch (e) {
@@ -37,14 +37,14 @@ use OfflinePayments\ApiException;
 
 $client = new Client(getenv('OPK'), '{{ config('docs.api_base') }}');
 
-$client->upsertSubscriber('cust-42', '+2348012345678');
-$client->upsertMerchant('shop-7', 'Corner Shop', 'acct-9001');
+$client->upsertSubscriber('cust-42', '2000000001', '058', '+2348012345678');
+$client->upsertMerchant('shop-7', 'Corner Shop', '3000000001', '011');
 $endpoint = $client->createWebhookEndpoint('https://you.example/hooks/offline', ['transaction.settled']);
 
 try {
     $issued = $client->issueCode([
         'subscriber_reference' => 'cust-42', 'merchant_reference' => 'shop-7',
-        'amount_minor' => 250000, 'currency' => 'NGN', 'source_account_reference' => 'acct-1234',
+        'amount_minor' => 250000, 'currency' => 'NGN',
     ], $idempotencyKey);                                  // optional; generated if omitted
     echo $issued['code'];
 } catch (ApiException $e) {
@@ -60,8 +60,8 @@ $client->getTransaction($txId);</x-docs.code>
 <div class="docs-table-wrap"><table class="docs-table">
   <thead><tr><th>Method</th><th>API call</th></tr></thead>
   <tbody>
-    <tr><td><code class="inline">upsertSubscriber(reference, phone?)</code></td><td><code class="inline">PUT /subscribers/{reference}</code></td></tr>
-    <tr><td><code class="inline">upsertMerchant(reference, name, accountReference)</code></td><td><code class="inline">PUT /merchants/{reference}</code></td></tr>
+    <tr><td><code class="inline">upsertSubscriber(reference, accountNumber, bankCode, phone?)</code> <span style="color:var(--muted)">(JS: <code class="inline">{ accountNumber, bankCode, phone? }</code>)</span></td><td><code class="inline">PUT /subscribers/{reference}</code></td></tr>
+    <tr><td><code class="inline">upsertMerchant(reference, name, accountNumber, bankCode, accountReference?)</code> <span style="color:var(--muted)">(JS: <code class="inline">{ name, accountNumber, bankCode, accountReference? }</code>)</span></td><td><code class="inline">PUT /merchants/{reference}</code></td></tr>
     <tr><td><code class="inline">createWebhookEndpoint(url, events?)</code></td><td><code class="inline">POST /webhook-endpoints</code></td></tr>
     <tr><td><code class="inline">issueCode(params, idempotencyKey?)</code></td><td><code class="inline">POST /codes</code></td></tr>
     <tr><td><code class="inline">getCode(id)</code></td><td><code class="inline">GET /codes/{id}</code></td></tr>

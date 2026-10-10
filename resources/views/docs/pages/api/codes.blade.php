@@ -5,16 +5,17 @@
 
 <h2 id="issue">Issue a code</h2>
 <x-docs.endpoint method="POST" path="/codes" note="Requires an Idempotency-Key header" />
-<p>The platform first asks your system to <strong>hold</strong> the funds on <code class="inline">source_account_reference</code>. Only if the hold succeeds is a code created. If anything fails after the hold, the hold is released.</p>
+<p>The platform first asks your system to <strong>hold</strong> the funds on the <strong>subscriber's registered bank account</strong> (its <code class="inline">account_number</code> and <code class="inline">bank_code</code>). Only if the hold succeeds is a code created. If anything fails after the hold, the hold is released. When the payer later dials, the funds are credited to the <strong>merchant's registered account</strong>. Both accounts are frozen on the code when it is issued, so editing a subscriber or merchant afterwards never changes a payment already in flight.</p>
 
 <div class="docs-table-wrap"><table class="docs-table">
   <thead><tr><th>Field</th><th>Type</th><th>Rules</th></tr></thead>
   <tbody>
     <tr><td><code class="inline">subscriber_reference</code></td><td>string</td><td>Required. An existing <a href="{{ route('docs.show', ['section' => 'api', 'page' => 'subscribers']) }}">subscriber</a> (max 191).</td></tr>
-    <tr><td><code class="inline">merchant_reference</code></td><td>string</td><td>Required. An existing <a href="{{ route('docs.show', ['section' => 'api', 'page' => 'merchants']) }}">merchant</a> (max 191).</td></tr>
+    <tr><td><code class="inline">merchant_reference</code></td><td>string</td><td>Required (max 191). A <a href="{{ route('docs.show', ['section' => 'api', 'page' => 'merchants']) }}">merchant</a> you registered — or one created on the spot with <code class="inline">merchant</code> below.</td></tr>
+    <tr><td><code class="inline">merchant</code></td><td>object</td><td>Optional. <code class="inline">{ "name", "account_number", "bank_code" }</code> (and an optional <code class="inline">account_reference</code> label) — <strong>all three are required</strong> when the object is present. If <code class="inline">merchant_reference</code> doesn't exist yet it is <strong>created from these details</strong> together with the code. See <a href="#merchant-on-the-fly">below</a>.</td></tr>
     <tr><td><code class="inline">amount_minor</code></td><td>integer</td><td>Required. 1 to 999,999,999,999, in the smallest unit (kobo). <code class="inline">250000</code> = ₦2,500.00. Above your account's configured maximum → <code class="inline">settlement_rejected</code>.</td></tr>
     <tr><td><code class="inline">currency</code></td><td>string</td><td>Required. Exactly 3 letters (<code class="inline">NGN</code>); stored upper-case.</td></tr>
-    <tr><td><code class="inline">source_account_reference</code></td><td>string</td><td>Required (max 191). <em>Your</em> reference for the account to hold funds on.</td></tr>
+    <tr><td><code class="inline">source_account_reference</code></td><td>string</td><td>Optional (max 191). Your own label for the paying account, passed to your system with the hold. The funds are held on the subscriber's registered account either way.</td></tr>
   </tbody>
 </table></div>
 
@@ -25,8 +26,7 @@
     "subscriber_reference": "cust-42",
     "merchant_reference": "shop-7",
     "amount_minor": 250000,
-    "currency": "NGN",
-    "source_account_reference": "acct-1234"
+    "currency": "NGN"
   }'</x-docs.code>
 <x-docs.code lang="json">// 201 Created
 {
@@ -36,11 +36,16 @@
   "currency": "NGN",
   "expires_at": "2026-10-09T15:10:00+00:00",
   "redeemed_at": null,
-  "code": "482019377104"
+  "merchant_created": false,
+  "code": "482019377104",
+  "voice_number": "+2347000000001",
+  "dial_string": "+2347000000001,,,482019377104#",
+  "dial_uri": "tel:+2347000000001,,,482019377104%23"
 }</x-docs.code>
 <ul>
   <li><code class="inline">code</code> is the digits the payer dials. It appears <strong>only in this response</strong> (and in an idempotent replay of it). It is stored as a keyed hash and can never be read back — not by you, not by PakaPay staff.</li>
   <li>Code length is 12 digits by default (set per platform). On a <em>shared</em> voice number the code is prefixed with your 4-digit short code; see <a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'numbers']) }}">Voice Numbers</a>. Always show the payer the <code class="inline">code</code> exactly as returned.</li>
+  <li><strong>Dialling help.</strong> Three more fields spare you assembling the call yourself: <code class="inline">voice_number</code> (the number to ring, in international form), <code class="inline">dial_string</code> (that number, three pauses, the code and a closing <code class="inline">#</code>, ready for a dialler) and <code class="inline">dial_uri</code> (the same as a <code class="inline">tel:</code> link, with the <code class="inline">#</code> percent-encoded, which most phones need). The commas are pauses so the call connects before the digits are sent. They hold the code, so like <code class="inline">code</code> they appear <strong>only in this response</strong>. If no voice number has been set up for your account yet, all three are <code class="inline">null</code> — show the code and ask PakaPay for a number.</li>
   <li><code class="inline">expires_at</code> is now plus your account's code lifetime (default 10 minutes).</li>
 </ul>
 <x-docs.try-it method="POST" path="/codes" :fields="[
@@ -49,14 +54,34 @@
     ['name' => 'merchant_reference', 'in' => 'body', 'required' => true, 'default' => 'shop-7'],
     ['name' => 'amount_minor', 'in' => 'body', 'type' => 'number', 'required' => true, 'default' => '250000'],
     ['name' => 'currency', 'in' => 'body', 'required' => true, 'default' => 'NGN'],
-    ['name' => 'source_account_reference', 'in' => 'body', 'required' => true, 'default' => 'acct-1234'],
+    ['name' => 'source_account_reference', 'in' => 'body', 'placeholder' => 'optional label'],
 ]" warning="Places a hold through your settlement system. On a sandbox account this is simulated; on a live account it reserves real funds." />
+
+<h3 id="merchant-on-the-fly">Creating the merchant while issuing</h3>
+<p>You don't have to register a merchant in a separate call first. Add a <code class="inline">merchant</code> object and an unknown <code class="inline">merchant_reference</code> is registered as part of the same request:</p>
+<x-docs.code lang="json">{
+  "subscriber_reference": "cust-42",
+  "merchant_reference": "shop-9",
+  "merchant": { "name": "Fresh Shop", "account_number": "3000000009", "bank_code": "011" },
+  "amount_minor": 250000,
+  "currency": "NGN"
+}</x-docs.code>
+<ul>
+  <li>The response has <code class="inline">"merchant_created": true</code> when this request registered the merchant, otherwise <code class="inline">false</code>.</li>
+  <li>The merchant is created <strong>only if the hold succeeds</strong>. A refused hold, or any later failure, leaves nothing behind.</li>
+  <li>Send the same <code class="inline">merchant</code> details on every call if that's easier — once the merchant exists they are simply checked, not applied.</li>
+  <li><strong>An existing merchant is never changed this way.</strong> Its name is left alone, and if <code class="inline">merchant.account_number</code> or <code class="inline">merchant.bank_code</code> differs from the account on file the request is refused with <code class="inline">422</code> (<code class="inline">merchant.account_number</code> in <code class="inline">errors</code>). The account that gets credited must not be rewritable by a payment request; change it deliberately with <a href="{{ route('docs.show', ['section' => 'api', 'page' => 'merchants']) }}"><code class="inline">PUT /merchants/{reference}</code></a>.</li>
+  <li>Without <code class="inline">merchant</code>, an unknown <code class="inline">merchant_reference</code> is still <code class="inline">404</code>.</li>
+  <li>Safe to retry: a retry with the same <code class="inline">Idempotency-Key</code> doesn't create it twice, and two simultaneous requests for a new merchant end up with one row.</li>
+</ul>
 
 <h3 id="issue-errors">Errors</h3>
 <div class="docs-table-wrap"><table class="docs-table">
   <thead><tr><th>Status</th><th>Why</th></tr></thead>
   <tbody>
-    <tr><td>404 <code class="inline">not_found</code></td><td>The subscriber or merchant reference isn't registered</td></tr>
+    <tr><td>404 <code class="inline">not_found</code></td><td>The subscriber isn't registered, or the merchant isn't and no <code class="inline">merchant</code> details were sent</td></tr>
+    <tr><td>422 validation</td><td><code class="inline">merchant</code> sent without <code class="inline">name</code>, <code class="inline">account_number</code> or <code class="inline">bank_code</code> (or in the wrong format), or with an account that differs from the registered merchant's</td></tr>
+    <tr><td>422 validation</td><td>The subscriber or merchant has <strong>no bank account on file</strong> (registered before accounts were required) — register it with <code class="inline">PUT</code> first</td></tr>
     <tr><td>422 <code class="inline">settlement_rejected</code></td><td>Your system refused the hold (e.g. insufficient funds — the message is its reason), or the amount is above the account maximum</td></tr>
     <tr><td>422 validation</td><td>A field is missing or malformed</td></tr>
     <tr><td>422 <code class="inline">idempotency_key_required</code> / <code class="inline">idempotency_key_reused</code></td><td>See <a href="{{ route('docs.show', ['section' => 'getting-started', 'page' => 'idempotency']) }}">Idempotency</a></td></tr>
