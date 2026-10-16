@@ -3,6 +3,10 @@
 
 <p>The payer needs only a phone — any phone, no data, no app. They call the voice number you show them, key in the code and press <code class="inline">#</code>.</p>
 
+<x-docs.callout type="note" title="Two kinds of code">
+  <p>The call handles both <a href="{{ route('docs.show', ['section' => 'api', 'page' => 'codes']) }}">codes your server issues</a> (12 digits) and <a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'overview']) }}">codes the phone builds itself</a> (40 digits). Everything on this page applies to both; the extra checks for phone codes are on the <a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'risk']) }}">Limits &amp; Risk</a> page.</p>
+</x-docs.callout>
+
 <h2 id="the-call">What the payer experiences</h2>
 <ol>
   <li>They dial the voice number (shown by your app next to the code).</li>

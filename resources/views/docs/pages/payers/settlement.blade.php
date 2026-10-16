@@ -47,6 +47,14 @@
   <li><strong>Your limits live here.</strong> The platform enforces only an optional per-account maximum amount. Per-customer daily limits, KYC tiers, velocity and fraud rules belong in your <code class="inline">hold</code> decision: reject the hold and the code is never created.</li>
 </ul>
 
+<h2 id="offline-codes">Hold and capture in one go (offline phone codes)</h2>
+<p>For a code a phone built offline, no hold exists when the call arrives, so the platform calls <code class="inline">hold</code> and then <code class="inline">capture</code> back to back. The adapter contract is unchanged, but these must hold:</p>
+<ul>
+  <li><code class="inline">hold</code> is <strong>idempotent on its reference</strong> (the code's UUID): a second call with the same reference returns the hold you already placed, never a second one. The platform repeats it when an answer was lost.</li>
+  <li>A declined <code class="inline">hold</code> fails the transaction at once; there is nothing to release.</li>
+  <li>If a <code class="inline">hold</code> never answers, the transaction stays pending and reconciliation starts the hold again (safe, because nothing can have been captured without a hold on record).</li>
+</ul>
+
 <h2 id="state-diagram">How the calls line up</h2>
 <x-docs.code lang="text">POST /codes ────────── hold ─────────▶  reserve funds        → code: issued
 payer's call ─────── (verify) ─────────                          → code: redeemed, txn: pending

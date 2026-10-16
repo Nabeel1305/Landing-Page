@@ -23,7 +23,7 @@
   -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
   -d '{ "name": "Corner Shop", "account_number": "3000000001", "bank_code": "011" }'</x-docs.code>
 <x-docs.code lang="json">// 201 Created (200 OK when it already existed)
-{ "reference": "shop-7", "name": "Corner Shop", "account_number": "3000000001", "bank_code": "011", "account_reference": null }</x-docs.code>
+{ "reference": "shop-7", "short_id": "70011234", "name": "Corner Shop", "account_number": "3000000001", "bank_code": "011", "account_reference": null }</x-docs.code>
 <x-docs.try-it method="PUT" path="/merchants/{reference}" :fields="[
     ['name' => 'name', 'in' => 'body', 'required' => true, 'default' => 'Corner Shop'],
     ['name' => 'account_number', 'in' => 'body', 'required' => true, 'default' => '3000000001'],
@@ -34,6 +34,9 @@
 <x-docs.callout type="note" title="Changing a merchant's account is safe for payments in flight">
   <p>When a code is issued, both accounts are <strong>frozen on the code</strong>. If you change a merchant's account afterwards, codes already issued still credit the account they were issued with; only new codes use the new one.</p>
 </x-docs.callout>
+
+<h2 id="short-id">The short id</h2>
+<p>Every merchant gets an 8-digit <code class="inline">short_id</code> the moment it is created, returned by every merchant response (and by <code class="inline">GET /merchants/{reference}</code>). It never changes. A phone puts it in an <a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'enrolment']) }}#merchant-short-id">offline phone code</a> to say who is being paid — put it, with the account number and bank code, in the merchant's QR code.</p>
 
 <h2 id="errors">Errors</h2>
 <p><code class="inline">422</code> with <code class="inline">{ message, errors }</code> when <code class="inline">name</code>, <code class="inline">account_number</code> or <code class="inline">bank_code</code> is missing or in the wrong format.</p>

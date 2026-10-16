@@ -28,6 +28,7 @@
     <tr><td><code class="inline">transaction.settled</code></td><td>Your system captured the funds</td><td>Transaction (<code class="inline">status: "settled"</code>)</td></tr>
     <tr><td><code class="inline">transaction.failed</code></td><td>Capture was declined, or your system reported the hold released</td><td>Transaction (<code class="inline">status: "failed"</code>)</td></tr>
     <tr><td><code class="inline">code.expired</code></td><td>A code reached its deadline unused; its hold was released</td><td>Code (<code class="inline">state: "expired"</code>)</td></tr>
+    <tr><td><code class="inline">code.rejected</code></td><td>An <a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'risk']) }}">offline phone code</a> was genuine but refused (limit, reused counter, caller mismatch…)</td><td>A rejection object with <code class="inline">reason</code> — see below</td></tr>
     <tr><td><code class="inline">webhook.test</code></td><td>You pressed "Send test" in the portal (always delivered to that endpoint only)</td><td><code class="inline">{ "message": … }</code></td></tr>
   </tbody>
 </table></div>
@@ -63,6 +64,17 @@
     "failure_reason": "Insufficient funds."
   }
 }</x-docs.code>
+
+<p><strong>Rejection</strong> (<code class="inline">code.rejected</code>) — only for genuine offline phone codes; a code with a bad signature produces no event:</p>
+<x-docs.code lang="json">{
+  "id": "c4d1…", "type": "code.rejected", "created_at": "2026-10-16T09:12:44+00:00",
+  "data": {
+    "origin": "device", "reason": "daily_limit",
+    "device_id": "5f0c1e3a-…", "subscriber_reference": "cust-42", "merchant_reference": "shop-7",
+    "amount_minor": 400000, "currency": "NGN"
+  }
+}</x-docs.code>
+<p>Every <code class="inline">code</code> and <code class="inline">transaction</code> payload also carries <code class="inline">origin</code>: <code class="inline">issued</code> (your server made the code) or <code class="inline">device</code> (a phone built it offline).</p>
 
 <h2 id="ordering">Ordering</h2>
 <p>For one payment the order is <code class="inline">code.redeemed</code> → <code class="inline">transaction.settled</code> <em>or</em> <code class="inline">transaction.failed</code>. Retries and network timing mean events can still <strong>arrive out of order</strong>. Don't rely on arrival order: use the state in <code class="inline">data</code> (final states never go backwards), and when in doubt call <code class="inline">GET /transactions/{id}</code>.</p>

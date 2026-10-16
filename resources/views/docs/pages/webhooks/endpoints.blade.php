@@ -9,7 +9,7 @@
   <thead><tr><th>Field</th><th>Rules</th></tr></thead>
   <tbody>
     <tr><td><code class="inline">url</code></td><td>Required. A valid URL, max 2,048 characters, <strong>https</strong>, resolving to a <strong>public</strong> address.</td></tr>
-    <tr><td><code class="inline">events</code></td><td>Optional array of at least one of <code class="inline">code.redeemed</code>, <code class="inline">transaction.settled</code>, <code class="inline">transaction.failed</code>, <code class="inline">code.expired</code>. Omit to receive <strong>every</strong> event, including any added later.</td></tr>
+    <tr><td><code class="inline">events</code></td><td>Optional array of at least one of <code class="inline">code.redeemed</code>, <code class="inline">transaction.settled</code>, <code class="inline">transaction.failed</code>, <code class="inline">code.expired</code>, <code class="inline">code.rejected</code>. Omit to receive <strong>every</strong> event, including any added later.</td></tr>
   </tbody>
 </table></div>
 <x-docs.code lang="bash">curl {{ config('docs.api_base') }}/webhook-endpoints \

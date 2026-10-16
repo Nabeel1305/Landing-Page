@@ -56,6 +56,17 @@ $client->cancelCode($id);
 $client->getTransaction($txId);</x-docs.code>
 <p>You can pass your own HTTP transport (a callable) as the third constructor argument to use Guzzle or a test double.</p>
 
+<h2 id="offline-codes">Offline phone codes</h2>
+<p>Both clients can enrol a phone and build the code a phone dials with no connection. The builders are the reference implementation of the <a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'code-format']) }}">format</a> — port them to Kotlin, Swift or Dart for your app, and check your port against the published test vectors.</p>
+<x-docs.code lang="js">const d = await client.enrolDevice('cust-42', installationId);       // d.device_key, d.short_id, d.last_counter
+const code = buildDeviceCode({ deviceKey: d.device_key, deviceShortId: d.short_id, counter: next,
+  amountMinor: 250000, merchantShortId: m.short_id,
+  source: { accountNumber: '2000000001', bankCode: '058' }, destination: { accountNumber: m.account_number, bankCode: m.bank_code } });
+dialString('+2347000000001', code);                                    // "+2347000000001,,,1…#"</x-docs.code>
+<x-docs.code lang="php">$d = $client->enrolDevice('cust-42', $installationId);
+$code = \OfflinePayments\DeviceCode::build($d['device_key'], $d['short_id'], $next, 250000, $m['short_id'],
+    ['accountNumber' => '2000000001', 'bankCode' => '058'], ['accountNumber' => $m['account_number'], 'bankCode' => $m['bank_code']]);</x-docs.code>
+
 <h2 id="methods">Methods</h2>
 <div class="docs-table-wrap"><table class="docs-table">
   <thead><tr><th>Method</th><th>API call</th></tr></thead>
@@ -66,6 +77,11 @@ $client->getTransaction($txId);</x-docs.code>
     <tr><td><code class="inline">issueCode(params, idempotencyKey?)</code></td><td><code class="inline">POST /codes</code></td></tr>
     <tr><td><code class="inline">getCode(id)</code></td><td><code class="inline">GET /codes/{id}</code></td></tr>
     <tr><td><code class="inline">cancelCode(id, idempotencyKey?)</code></td><td><code class="inline">POST /codes/{id}/cancel</code></td></tr>
+    <tr><td><code class="inline">enrolDevice(subscriberReference, deviceId)</code></td><td><code class="inline">POST /subscribers/{reference}/devices</code></td></tr>
+    <tr><td><code class="inline">listDevices(subscriberReference)</code></td><td><code class="inline">GET /subscribers/{reference}/devices</code></td></tr>
+    <tr><td><code class="inline">revokeDevice(subscriberReference, deviceId)</code></td><td><code class="inline">DELETE /subscribers/{reference}/devices/{deviceId}</code></td></tr>
+    <tr><td><code class="inline">getMerchant(reference)</code></td><td><code class="inline">GET /merchants/{reference}</code></td></tr>
+    <tr><td><code class="inline">buildDeviceCode(…)</code> / <code class="inline">DeviceCode::build(…)</code>, <code class="inline">dialString(…)</code></td><td>Builds the 40-digit code and the dial string (no API call)</td></tr>
     <tr><td><code class="inline">getTransaction(id)</code></td><td><code class="inline">GET /transactions/{id}</code></td></tr>
     <tr><td><code class="inline">verifyWebhook(secret, header, rawBody)</code> / <code class="inline">Webhook::verify(...)</code></td><td>Signature check — see <a href="{{ route('docs.show', ['section' => 'webhooks', 'page' => 'verifying']) }}">Verifying Signatures</a></td></tr>
   </tbody>

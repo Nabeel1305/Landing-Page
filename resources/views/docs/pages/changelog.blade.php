@@ -3,6 +3,13 @@
 
 <p>Notable changes to the Offline Payments API and developer portal, most recent first.</p>
 
+<h2 id="2026-10-16">16 October 2026</h2>
+<ul>
+  <li><strong>Offline phone codes.</strong> A subscriber's phone can now build a signed 40-digit payment code with no connection and dial it. New endpoints: <code class="inline">POST /subscribers/{reference}/devices</code> (enrol, returns the phone's secret key), <code class="inline">GET …/devices</code>, <code class="inline">DELETE …/devices/{deviceId}</code> and <code class="inline">GET /merchants/{reference}</code>. Merchants now have an 8-digit <code class="inline">short_id</code>. The platform verifies the signature, counter, limits and (optionally) the caller, then holds and captures in one step. Off by default; switched on per organisation by PakaPay. See <a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'overview']) }}">Offline Phone Codes</a>.</li>
+  <li>New event <code class="inline">code.rejected</code> (a genuine offline code refused for a limit, reused counter, caller mismatch…), and an <code class="inline">origin</code> field (<code class="inline">issued</code> | <code class="inline">device</code>) on every code and transaction payload.</li>
+  <li>The JS and PHP clients gain <code class="inline">enrolDevice</code>, <code class="inline">listDevices</code>, <code class="inline">revokeDevice</code>, <code class="inline">getMerchant</code> and reference builders for the code.</li>
+</ul>
+
 <h2 id="2026-10-10">10 October 2026</h2>
 <ul>
   <li><strong>Bank accounts are now required.</strong> <code class="inline">PUT /subscribers/{reference}</code> requires <code class="inline">account_number</code> and <code class="inline">bank_code</code> (the account funds are held on and debited from). <code class="inline">PUT /merchants/{reference}</code> requires <code class="inline">name</code>, <code class="inline">account_number</code> and <code class="inline">bank_code</code> (the account credited); <code class="inline">account_reference</code> becomes an optional label. A merchant created on the fly with <code class="inline">POST /codes</code> needs the same fields. <strong>Breaking:</strong> existing integrations must send the new fields, and subscribers and merchants registered before this change must be re-registered before they can be used for a new code (<code class="inline">POST /codes</code> answers 422 until then).</li>

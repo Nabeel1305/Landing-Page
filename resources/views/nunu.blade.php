@@ -82,6 +82,10 @@
         <p>Every organisation's data is separate, every action is written to a tamper-evident audit log, and sign-in to the portal requires two-factor.</p>
       </div>
       <div class="info-card">
+        <h3>Payments that start with no signal</h3>
+        <p>Beyond codes your server issues, the customer's own phone can build a signed code offline and dial it. Nothing is reserved while the phone is offline, so each bank sets small caps and the platform checks the signature, the counter and the limits before your system is asked to move money.</p>
+      </div>
+      <div class="info-card">
         <h3>Your numbers or ours</h3>
         <p>Run on a voice number of your own, or share one with a short code that routes each call to the right organisation.</p>
       </div>
@@ -120,6 +124,10 @@
     <details class="acc-item">
       <summary>Who does KYC on the customer?</summary>
       <p>You do. Nunu trusts the subscribers you register, and your own limits and checks apply when you place the hold.</p>
+    </details>
+    <details class="acc-item">
+      <summary>Can a customer start a payment with no connection at all?</summary>
+      <p>Yes, if you switch on offline phone codes. The customer's phone holds a secret key (set up once, while online) and builds a signed code by itself; the account numbers are never dialled, only short identifiers. The trade-off is that nothing is held in advance, so you set per-payment and daily caps and your system checks funds when the call arrives.</p>
     </details>
     <details class="acc-item">
       <summary>What is available today?</summary>

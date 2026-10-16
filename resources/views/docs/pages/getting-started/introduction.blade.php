@@ -29,6 +29,7 @@
 
 <h2 id="what-you-get">What you get</h2>
 <ul>
+  <li><strong>Payments that start with no connection.</strong> Besides codes your server issues, the payer's own phone can build a signed code offline and dial it — see <a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'overview']) }}">Offline Phone Codes</a>.</li>
   <li><strong>A small REST API</strong> — subscribers, merchants, codes, transactions, webhook endpoints.</li>
   <li><strong>Signed, retried webhooks</strong> with a verification helper for PHP and JavaScript (<a href="{{ route('docs.show', ['section' => 'clients', 'page' => 'clients']) }}">Client Libraries</a>).</li>
   <li><strong>Safe retries</strong> — every issue/cancel call is idempotent.</li>
@@ -40,6 +41,7 @@
 <ul>
   <li><a href="{{ route('docs.show', ['section' => 'getting-started', 'page' => 'quickstart']) }}">Quickstart</a> — a sandbox payment in six steps.</li>
   <li><a href="{{ route('docs.show', ['section' => 'webhooks', 'page' => 'verifying']) }}">Verifying webhook signatures</a> — do this before trusting any event.</li>
+  <li><a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'overview']) }}">Offline phone codes</a> — let payers start a payment with no connection at all.</li>
   <li><a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'settlement']) }}">Settlement Adapter</a> — what your core system must provide (hold, capture, release, status).</li>
   <li><a href="{{ route('docs.show', ['section' => 'payers', 'page' => 'going-live']) }}">Going live</a> — the checklist.</li>
 </ul>

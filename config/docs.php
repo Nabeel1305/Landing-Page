@@ -29,6 +29,15 @@ return [
                 'transactions' => 'Transactions',
             ],
         ],
+        'offline' => [
+            'title' => 'Offline Phone Codes', 'icon' => 'phone',
+            'pages' => [
+                'overview' => 'How It Works',
+                'enrolment' => 'Enrolling Phones',
+                'code-format' => 'Code Format & Signing',
+                'risk' => 'Limits & Risk',
+            ],
+        ],
         'webhooks' => [
             'title' => 'Webhooks',
             'icon' => 'bell',

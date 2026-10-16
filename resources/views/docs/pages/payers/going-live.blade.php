@@ -15,6 +15,7 @@
   <li><strong>Idempotent capture and honest status.</strong> Verified in the sandbox against failure injection.</li>
   <li><strong>Webhook receiver hardened:</strong> signature verified, de-duplicated by event id, alerting on failures.</li>
   <li><strong>Your own checks in place:</strong> KYC, limits and fraud rules enforced in your <code class="inline">hold</code> decision.</li>
+  <li><strong>If you use <a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'overview']) }}">offline phone codes</a>:</strong> hold and capture are idempotent, your app builds codes exactly per the <a href="{{ route('docs.show', ['section' => 'offline', 'page' => 'code-format']) }}">format</a> (test vectors pass), keys live in secure hardware, caps are agreed, caller binding is on, and customers are notified on every offline payment and <code class="inline">code.rejected</code>.</li>
   <li><strong>Voice number provisioned</strong> with the telephony provider and tested with a real call (own number, or a short code on the shared pool).</li>
   <li><strong>Operational readiness:</strong> someone watches the portal dashboard for pending transactions and failed deliveries, and knows what <code class="inline">transaction.needs_review</code> means.</li>
   <li><strong>Team and security:</strong> at least two owners with two-factor on; keys held by your servers only.</li>
